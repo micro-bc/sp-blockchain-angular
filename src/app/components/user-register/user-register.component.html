@@ -1,1 +1,23 @@
-<p>user-register works!</p>
+<div class="form-register my-5 p-3 border rounded bg-light">
+
+    <h3 class="text-center">Register</h3>
+
+    <form (ngSubmit)="onSubmit()">
+
+        <p class="m-2 my-3 text-center">
+            By clicking register, a new wallet will be created with some initial funds.
+            You will be given a private key to access your wallet.<br>
+        </p>
+
+        <p class="text-center"><strong>Do NOT lose or share your private key!</strong></p>
+
+        <div class="text-danger text-center mb-3">{{error}}</div>
+        <input type="submit" name="register" class="btn btn-primary mb-3 col" value="Register" />
+
+        <div class="text-center">
+            Already have a wallet? <a routerLink="/login">Login here</a>
+        </div>
+
+    </form>
+
+</div>

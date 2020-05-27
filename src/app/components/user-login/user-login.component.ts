@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLoginComponent implements OnInit {
 
+  error: string = "";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    // Validate with Wallet service
   }
 
 }

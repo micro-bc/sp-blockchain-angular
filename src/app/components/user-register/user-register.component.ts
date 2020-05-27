@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserRegisterComponent implements OnInit {
 
+  error: string = "";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    // Create new wallet
   }
 
 }
