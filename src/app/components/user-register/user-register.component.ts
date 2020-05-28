@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { WalletService } from 'src/app/services/wallet.service';
+
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
@@ -7,15 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserRegisterComponent implements OnInit {
 
-  error: string = "";
+  error: string = '';
+  privateKey: string;
 
-  constructor() { }
+  constructor(private wallet: WalletService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    // Create new wallet
+    this.privateKey = this.wallet.register();
   }
 
 }

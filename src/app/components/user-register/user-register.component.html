@@ -1,23 +1,43 @@
 <div class="form-register my-5 p-3 border rounded bg-light">
 
-    <h3 class="text-center">Register</h3>
+    <div *ngIf="privateKey == null">
+        <h3 class="text-center">Register</h3>
 
-    <form (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="onSubmit()">
+    
+            <p class="m-2 my-3 text-center">
+                By clicking register, a new wallet will be created with some initial funds.
+                You will be given a private key to access your wallet.
+            </p>
+    
+            <p class="text-center"><strong>Do NOT lose or share your private key!</strong></p>
+    
+            <div class="text-danger text-center mb-3">{{error}}</div>
+            <input type="submit" name="register" class="btn btn-primary mb-3 col" value="Register" />
+    
+            <div class="text-center">
+                Already have a wallet? <a routerLink="/login">Login here</a>
+            </div>
+    
+        </form>
+    </div>
+    
+    <div *ngIf="privateKey != null">
+        <h3 class="text-center">All set!</h3>
 
         <p class="m-2 my-3 text-center">
-            By clicking register, a new wallet will be created with some initial funds.
-            You will be given a private key to access your wallet.<br>
+            Be sure to save this key and keep it safe!
         </p>
 
-        <p class="text-center"><strong>Do NOT lose or share your private key!</strong></p>
-
-        <div class="text-danger text-center mb-3">{{error}}</div>
-        <input type="submit" name="register" class="btn btn-primary mb-3 col" value="Register" />
-
-        <div class="text-center">
-            Already have a wallet? <a routerLink="/login">Login here</a>
+        <div class="form-group">
+            <small for="privateKey">Your private key</small>
+            <input id="privateKey" class="form-control readonly" type="text" name="privateKey" [value]="privateKey"/>
         </div>
 
-    </form>
+        <div class="text-center">
+            <a routerLink="/login">Login here</a>
+        </div>
+
+    </div>
 
 </div>

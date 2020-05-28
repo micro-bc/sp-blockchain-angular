@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLoginComponent implements OnInit {
 
-  error: string = "";
+  error: string = '';
 
   constructor() { }
 
