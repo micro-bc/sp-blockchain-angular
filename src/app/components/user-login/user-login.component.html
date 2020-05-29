@@ -2,11 +2,11 @@
 
     <h3 class="text-center">Login</h3>
 
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit(privateKey.value)">
 
         <div class="form-group">
             <small for="privateKey">Private key</small>
-            <input id="privateKey" class="form-control" type="text" name="privateKey" />
+            <input #privateKey id="privateKey" class="form-control" type="text" name="privateKey" />
         </div>
 
         <div class="text-danger text-center mb-3">{{error}}</div>

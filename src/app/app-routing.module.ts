@@ -8,9 +8,10 @@ import { UserRegisterComponent } from './components/user-register/user-register.
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [LoginGuard] },
   { path: 'login', component: UserLoginComponent },
   { path: 'register', component: UserRegisterComponent },
-  { path: '**', component: HomeComponent, canActivate: [LoginGuard] }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-user-login',
@@ -9,13 +12,23 @@ export class UserLoginComponent implements OnInit {
 
   error: string = '';
 
-  constructor() { }
+  constructor(
+    private wallet: WalletService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    // Validate with Wallet service
+  onSubmit(privateKey) {
+
+    if (this.wallet.login(privateKey)) {
+      this.router.navigateByUrl('/');
+    }
+    else {
+      this.error = 'Could not login!';
+    }
+
   }
 
 }

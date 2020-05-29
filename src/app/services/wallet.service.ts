@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ec } from 'elliptic';
+import { loadavg } from 'os';
 
 const EC = new ec('secp256k1');
 
@@ -8,17 +9,18 @@ const EC = new ec('secp256k1');
 })
 export class WalletService {
 
-  private static localStorageKey: string = 'privateKey';
+  static localStorageKey: string = 'privateKey';
 
-  keyPair: ec.KeyPair;
+  private keyPair: ec.KeyPair;
 
   constructor() { }
 
   login(privateKey: string): boolean {
     let tkp = EC.keyFromPrivate(privateKey, 'hex');
 
-    if (!tkp.validate().result) return false;
+    if (false) return false; // TODO: Check if exists
 
+    console.log(privateKey);
     localStorage.setItem(WalletService.localStorageKey, privateKey);
     this.keyPair = tkp;
     return true;
@@ -27,6 +29,11 @@ export class WalletService {
   register(): string {
     // TODO: send to api
     return EC.genKeyPair().getPrivate('hex');
+  }
+
+  logout(): void {
+    this.keyPair = null;
+    localStorage.clear();
   }
 
 }

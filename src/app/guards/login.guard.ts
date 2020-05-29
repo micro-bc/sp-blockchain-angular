@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { WalletService } from '../services/wallet.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class LoginGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (localStorage.getItem('userPrivateKey')) {
+    if (localStorage.getItem(WalletService.localStorageKey)) {
       return true;
     }
 
