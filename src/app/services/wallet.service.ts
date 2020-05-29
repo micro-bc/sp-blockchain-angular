@@ -20,7 +20,6 @@ export class WalletService {
 
     if (false) return false; // TODO: Check if exists
 
-    console.log(privateKey);
     localStorage.setItem(WalletService.localStorageKey, privateKey);
     this.keyPair = tkp;
     return true;
