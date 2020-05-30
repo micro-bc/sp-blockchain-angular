@@ -2,11 +2,16 @@
 
     <h3 class="text-center">Login</h3>
 
-    <form (ngSubmit)="onSubmit(privateKey.value)">
+    <form (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-            <small for="privateKey">Private key</small>
-            <input #privateKey id="privateKey" class="form-control" type="text" name="privateKey" />
+            <small for="username">Username</small>
+            <input id="username" class="form-control" [(ngModel)]="user.username" type="text" name="username" />
+        </div>
+
+        <div class="form-group">
+            <small for="password">Password</small>
+            <input id="password" class="form-control" [(ngModel)]="user.password" type="password" name="password" />
         </div>
 
         <div class="text-danger text-center mb-3">{{error}}</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
@@ -11,23 +13,30 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class UserLoginComponent implements OnInit {
 
   error: string = '';
+  user: User;
 
   constructor(
+    private userService: UserService,
     private wallet: WalletService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.user = new User();
   }
 
-  onSubmit(privateKey) {
+  onSubmit() {
 
-    if (this.wallet.login(privateKey)) {
+    this.error = '';
+
+    this.userService.login(this.user).subscribe(res => {
+
+      this.wallet.login(res.username, res.privateKey);
       this.router.navigateByUrl('/');
-    }
-    else {
-      this.error = 'Could not login!';
-    }
+
+    }, err => {
+      this.error = err['error']['error'] || err['name'];
+    });
 
   }
 

@@ -9,30 +9,37 @@ const EC = new ec('secp256k1');
 })
 export class WalletService {
 
-  static localStorageKey: string = 'privateKey';
+  static localStorageKey: string = 'credentials';
 
+  username: string;
   private keyPair: ec.KeyPair;
 
-  constructor() { }
+  constructor() {
 
-  login(privateKey: string): boolean {
-    let tkp = EC.keyFromPrivate(privateKey, 'hex');
+    const credentials = localStorage.getItem(WalletService.localStorageKey);
+    if (credentials) {
+      let splt = credentials.split(';');
+      this.username = splt[0];
+      this.keyPair = EC.keyFromPrivate(splt[1], 'hex');
+    }
 
-    if (false) return false; // TODO: Check if exists
-
-    localStorage.setItem(WalletService.localStorageKey, privateKey);
-    this.keyPair = tkp;
-    return true;
   }
 
-  register(): string {
-    // TODO: send to api
-    return EC.genKeyPair().getPrivate('hex');
+  login(username:string, privateKey: string): void {
+    let tkp = EC.keyFromPrivate(privateKey, 'hex');
+
+    localStorage.setItem(WalletService.localStorageKey, username + ';' + privateKey);
+    this.username = username;
+    this.keyPair = tkp;
   }
 
   logout(): void {
     this.keyPair = null;
     localStorage.clear();
+  }
+
+  getPublic(): string {
+    return this.keyPair.getPublic('hex');
   }
 
 }

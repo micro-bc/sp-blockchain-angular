@@ -1,43 +1,26 @@
 <div class="form-register my-5 p-3 border rounded bg-light">
 
-    <div *ngIf="privateKey == null">
-        <h3 class="text-center">Register</h3>
+    <h3 class="text-center">Register</h3>
 
-        <form (ngSubmit)="onSubmit()">
-    
-            <p class="m-2 my-3 text-center">
-                By clicking register, a new wallet will be created with some initial funds.
-                You will be given a private key to access your wallet.
-            </p>
-    
-            <p class="text-center"><strong>Do NOT lose or share your private key!</strong></p>
-    
-            <div class="text-danger text-center mb-3">{{error}}</div>
-            <input type="submit" name="register" class="btn btn-primary mb-3 col" value="Register" />
-    
-            <div class="text-center">
-                Already have a wallet? <a routerLink="/login">Login here</a>
-            </div>
-    
-        </form>
-    </div>
-    
-    <div *ngIf="privateKey != null">
-        <h3 class="text-center">All set!</h3>
-
-        <p class="m-2 my-3 text-center">
-            Be sure to save this key and keep it safe!
-        </p>
+    <form (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-            <small for="privateKey">Your private key</small>
-            <input id="privateKey" class="form-control readonly" type="text" name="privateKey" [value]="privateKey"/>
+            <small for="username">Username</small>
+            <input id="username" class="form-control" [(ngModel)]="user.username" type="text" name="username" />
         </div>
+
+        <div class="form-group">
+            <small for="password">Password</small>
+            <input id="password" class="form-control" [(ngModel)]="user.password" type="password" name="password" />
+        </div>
+
+        <div class="text-danger text-center mb-3">{{error}}</div>
+        <input type="submit" name="register" class="btn btn-primary mb-3 col" value="Register" />
 
         <div class="text-center">
-            <a routerLink="/login">Login here</a>
+            Already have a wallet? <a routerLink="/login">Login here</a>
         </div>
 
-    </div>
+    </form>
 
 </div>

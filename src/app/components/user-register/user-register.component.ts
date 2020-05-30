@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { WalletService } from 'src/app/services/wallet.service';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-register',
@@ -10,15 +12,27 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class UserRegisterComponent implements OnInit {
 
   error: string = '';
-  privateKey: string;
+  user: User;
 
-  constructor(private wallet: WalletService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.user = new User();
   }
 
   onSubmit() {
-    this.privateKey = this.wallet.register();
+
+    this.userService.register(this.user).subscribe(res => {
+
+      this.router.navigateByUrl('/login');
+
+    }, err => {
+      this.error = err['error']['error'] || err['name'];
+    });
+
   }
 
 }
