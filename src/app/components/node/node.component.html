@@ -1,0 +1,37 @@
+<h1 class="h2 mb-4">
+    <a class="material-icons nav-link" routerLink="/">chevron_left</a>
+    Node
+</h1>
+
+<div class="text-center">Status: <span class="text-{{connected ? 'success' : 'danger'}}">{{connected ? "Connected to " + connectedTo : "Disconnected"}}</span></div>
+
+<h6>Enter node URL manualy</h6>
+
+<small>Node URL</small>
+<div class="input-group mb-4">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon3">http://</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="nodeField" placeholder="eg. 127.0.0.1:3000">
+    <div class="input-group-append">
+        <button class="btn btn-outline-success" type="button" (click)="Connect()">Connect</button>
+    </div>
+</div>
+
+<h6>Or select node from tracker list</h6>
+
+<small>Tracker URL</small>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon3">http://</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="trackerField" placeholder="eg. 127.0.0.1:2002">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="GetNodes()">Get nodes</button>
+    </div>
+</div>
+
+<div class="list-group">
+    <button *ngFor="let node of nodes" type="button" class="list-group-item list-group-item-action" (click)="nodeField = node; Connect();">{{node}}</button>
+    <button *ngIf="nodes.length === 0" type="button" class="list-group-item list-group-item-action" disabled>No nodes</button>
+</div>

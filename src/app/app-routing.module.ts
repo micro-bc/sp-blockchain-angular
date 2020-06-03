@@ -7,6 +7,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
+import { NodeComponent } from './components/node/node.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, canActivate: [LoginGuard], children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'node', component: NodeComponent },
       { path: 'transactions', component: TransactionsComponent }
     ]
   },

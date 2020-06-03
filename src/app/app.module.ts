@@ -11,6 +11,7 @@ import { NewTransactionComponent } from './components/new-transaction/new-transa
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { MainComponent } from './components/main/main.component';
+import { NodeComponent } from './components/node/node.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MainComponent } from './components/main/main.component';
     NewTransactionComponent,
     DashboardComponent,
     TransactionsComponent,
-    MainComponent
+    MainComponent,
+    NodeComponent
   ],
   imports: [
     BrowserModule,

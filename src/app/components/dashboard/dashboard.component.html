@@ -1,13 +1,24 @@
 <h1 class="h2">Dashboard</h1>
 
 <div class="row">
-    <div class="col-lg-4 mb-3">
-        <div class="card border border-primary shadow">
+    <div class="col-lg-4">
+        <div class="card border border-primary shadow mb-3">
             <div class="card-body">
                 <small class="card-text">Username</small>
                 <h5 class="card-title">{{getUsername()}}</h5>
                 <small class="card-text">Wallet address</small>
-                <textarea class="form-control form-control-sm" readonly rows="3" style="resize: none">{{getAddress()}}</textarea>
+                <textarea class="form-control form-control-sm" readonly rows="3"
+                    style="resize: none">{{getAddress()}}</textarea>
+            </div>
+        </div>
+
+        <div class="card border-danger shadow mb-3">
+            <div class="card-header" routerLink="/node">Node status</div>
+            <div class="card-body card-text text-danger">
+                <small>Status</small>
+                <h5>Not connected</h5>
+                <small>Connected to</small>
+                <h5>192.168.1.50:3000</h5>
             </div>
         </div>
     </div>
