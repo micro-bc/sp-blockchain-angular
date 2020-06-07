@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { MainComponent } from './components/main/main.component';
 import { NodeComponent } from './components/node/node.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { NodeComponent } from './components/node/node.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

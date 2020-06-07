@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { WalletService } from 'src/app/services/wallet.service';
 import { NodeService } from 'src/app/services/node.service';
+import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +14,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public wallet: WalletService,
-    public nodeService: NodeService
+    public nodeService: NodeService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +27,10 @@ export class DashboardComponent implements OnInit {
 
   getAddress(): string {
     return this.wallet.getPublic();
+  }
+
+  openTransactionModal(): void {
+    this.modalService.open(NewTransactionComponent, { size: 'xl', centered: true });
   }
 
 }

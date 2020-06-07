@@ -26,7 +26,11 @@
     </div>
     <div class="col-lg-8">
         <div class="card border shadow">
-            <div class="card-header" routerLink="/transactions">Transactions</div>
+            <div class="card-header d-flex align-items-center">
+                <span class="mr-auto">Transactions</span>
+                <button class="btn btn-sm btn-primary" (click)="openTransactionModal()">New</button>
+                <a class="btn btn-sm btn-outline-primary ml-2" routerLink="/transactions">More</a>
+            </div>
             <div class="card-body p-0">
                 <table class="table m-0">
                     <tbody>
