@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators'
 
+import { Transaction } from '../models/transaction';
+import { WalletService } from './wallet.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +17,10 @@ export class NodeService {
   trackerUrl: string = 'localhost:2002';
   nodeUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private wallet: WalletService
+  ) {
     const trackerUrl = localStorage.getItem(NodeService.trackerLocalStorage);
     if (trackerUrl) {
       this.trackerUrl = trackerUrl;
@@ -52,6 +58,15 @@ export class NodeService {
       this.setNodeURL(nodeUrl);
       return true;
     }, _ => { return false; });
+  }
+
+
+  prepareAndSend(tx: Transaction): Observable<Object> {
+    tx.from = this.wallet.getPublic();
+    const sig = this.wallet.sign(tx);
+
+    let obj = { transaction: tx, signature: sig };
+    return this.http.post('http://' + this.nodeUrl + '/transaction', obj);
   }
 
 }

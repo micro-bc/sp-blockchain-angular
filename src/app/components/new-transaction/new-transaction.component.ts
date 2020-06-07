@@ -22,7 +22,10 @@ export class NewTransactionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.transaction);
+    this.nodeService.prepareAndSend(this.transaction).subscribe({
+      complete: () => this.modal.close(true),
+      error: console.error
+    });
   }
 
 }

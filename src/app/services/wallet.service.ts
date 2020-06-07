@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ec } from 'elliptic';
-import { loadavg } from 'os';
+
+import { Transaction } from '../models/transaction';
 
 const EC = new ec('secp256k1');
 
@@ -40,6 +41,11 @@ export class WalletService {
 
   getPublic(): string {
     return this.keyPair.getPublic('hex');
+  }
+
+
+  sign(tx: Transaction): string {
+    return this.keyPair.sign(JSON.stringify(tx), 'utf-8').toDER('hex');
   }
 
 }
