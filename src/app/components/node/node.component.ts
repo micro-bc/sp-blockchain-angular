@@ -11,17 +11,12 @@ export class NodeComponent implements OnInit {
   trackerField: string;
   nodeField: string;
 
-  connected: boolean = false;
-  connectedTo: string = '';
-
   nodes: string[] = [];
 
-  constructor(private nodeService: NodeService) { }
+  constructor(public nodeService: NodeService) { }
 
   ngOnInit(): void {
     this.trackerField = this.nodeService.trackerUrl;
-    this.connectedTo = this.nodeService.nodeUrl;
-    this.connected = this.connectedTo ? true : false;
 
     this.GetNodes();
   }
@@ -33,10 +28,7 @@ export class NodeComponent implements OnInit {
   }
 
   Connect(): void {
-    this.nodeService.connectToNode(this.nodeField).then(res => {
-      this.connectedTo = this.nodeService.nodeUrl;
-      this.connected = true;
-    });
+    this.nodeService.connectToNode(this.nodeField);
   }
 
 }

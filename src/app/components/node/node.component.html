@@ -3,7 +3,7 @@
     Node
 </h1>
 
-<div class="text-center">Status: <span class="text-{{connected ? 'success' : 'danger'}}">{{connected ? "Connected to " + connectedTo : "Disconnected"}}</span></div>
+<div class="text-center">Status: <span class="text-{{this.nodeService.nodeUrl ? 'success' : 'danger'}}">{{this.nodeService.nodeUrl ? "Connected to " + this.nodeService.nodeUrl : "Disconnected"}}</span></div>
 
 <h6>Enter node URL manualy</h6>
 
