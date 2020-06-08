@@ -5,6 +5,8 @@ import { share } from 'rxjs/operators'
 
 import { Transaction } from '../models/transaction';
 import { WalletService } from './wallet.service';
+import { Extras } from '../models/extras';
+import { Balance } from '../models/balance';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,9 @@ export class NodeService {
   trackerUrl: string = 'localhost:2002';
   nodeUrl: string;
 
+  transactions: Transaction[] = [];
+  balance: Balance = new Balance();
+
   constructor(
     private http: HttpClient,
     private wallet: WalletService
@@ -28,7 +33,11 @@ export class NodeService {
 
     const nodeUrl = sessionStorage.getItem(NodeService.nodeSessionStorage);
     if (nodeUrl) {
-      this.nodeUrl = nodeUrl;
+      this.connectToNode(nodeUrl).then(succ => {
+        if (succ) {
+          this.refreshData();
+        }
+      });
     }
   }
 
@@ -67,6 +76,24 @@ export class NodeService {
 
     let obj = { transaction: tx, signature: sig };
     return this.http.post('http://' + this.nodeUrl + '/transaction', obj);
+  }
+
+  getTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>('http://' + this.nodeUrl + '/transactions/' + this.wallet.getPublic());
+  }
+
+  getBalance(): Observable<Balance> {
+    return this.http.get<Balance>('http://' + this.nodeUrl + '/balance/' + this.wallet.getPublic());
+  }
+
+  refreshData(): void {
+    this.getTransactions().subscribe(txs => {
+      this.transactions = txs;
+    }, console.error);
+
+    this.getBalance().subscribe(bal => {
+      this.balance = bal;
+    }, console.error);
   }
 
 }

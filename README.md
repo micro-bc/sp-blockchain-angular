@@ -2,10 +2,10 @@
 
 ## Zahteve
 
-- [ ] Registracija in prijava
-- [ ] Vpogled v stanje na denarnici
-- [ ] Vmesnik za izvedbo transakcije (vpis naslova, količine dobrin) in informacija o tem, ali je transakcija potrjena
-- [ ] Prikaz vseh lastnih transakcij
+- [x] Registracija in prijava
+- [x] Vpogled v stanje na denarnici
+- [x] Vmesnik za izvedbo transakcije (vpis naslova, količine dobrin) in informacija o tem, ali je transakcija potrjena
+- [x] Prikaz vseh lastnih transakcij
 
 ---
 
