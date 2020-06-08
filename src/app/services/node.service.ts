@@ -5,7 +5,6 @@ import { share } from 'rxjs/operators'
 
 import { Transaction } from '../models/transaction';
 import { WalletService } from './wallet.service';
-import { Extras } from '../models/extras';
 import { Balance } from '../models/balance';
 
 @Injectable({

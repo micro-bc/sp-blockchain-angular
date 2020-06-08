@@ -11,13 +11,13 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{ nodeService.balance.amount }} Coins</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.masks }} Masks</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.respirators }} Respirators</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.volunteers }} Volunteers</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.doctors }} Doctors</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.ventilators }} Ventilators</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.hazmats }} Hazmats</li>
-                <li class="list-group-item">{{ nodeService.balance.extras.researches }} Researches</li>
+                <li class="list-group-item">{{ nodeService.balance.masks }} Masks</li>
+                <li class="list-group-item">{{ nodeService.balance.respirators }} Respirators</li>
+                <li class="list-group-item">{{ nodeService.balance.volunteers }} Volunteers</li>
+                <li class="list-group-item">{{ nodeService.balance.doctors }} Doctors</li>
+                <li class="list-group-item">{{ nodeService.balance.ventilators }} Ventilators</li>
+                <li class="list-group-item">{{ nodeService.balance.hazmats }} Hazmats</li>
+                <li class="list-group-item">{{ nodeService.balance.researches }} Researches</li>
             </ul>
         </div>
 
@@ -46,8 +46,18 @@
                         <tr *ngFor="let tx of nodeService.transactions">
                             <td>{{ tx.from }}</td>
                             <td>{{ tx.to }}</td>
-                            <td>{{ tx.amount }}</td>
-                            <td>{{ tx.extras }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-3">{{ tx.amount }}</div>
+                                    <div class="col-3">{{ tx.masks }}</div>
+                                    <div class="col-3">{{ tx.respirators }}</div>
+                                    <div class="col-3">{{ tx.volunteers }}</div>
+                                    <div class="col-3">{{ tx.doctors }}</div>
+                                    <div class="col-3">{{ tx.ventilators }}</div>
+                                    <div class="col-3">{{ tx.hazmats }}</div>
+                                    <div class="col-3">{{ tx.researches }}</div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
