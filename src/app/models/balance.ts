@@ -1,5 +1,5 @@
 export class Balance {
-    amount: number = 0;
+    clicks: number = 0;
     masks: number = 0;
     respirators: number = 0;
     volunteers: number = 0;

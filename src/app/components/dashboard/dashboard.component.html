@@ -10,13 +10,12 @@
                     rows="4">{{ this.wallet.getPublic() }}</textarea>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{ nodeService.balance.amount }} Coins</li>
+                <li class="list-group-item">{{ nodeService.balance.clicks }} Clicks</li>
                 <li class="list-group-item">{{ nodeService.balance.masks }} Masks</li>
                 <li class="list-group-item">{{ nodeService.balance.respirators }} Respirators</li>
                 <li class="list-group-item">{{ nodeService.balance.volunteers }} Volunteers</li>
                 <li class="list-group-item">{{ nodeService.balance.doctors }} Doctors</li>
                 <li class="list-group-item">{{ nodeService.balance.ventilators }} Ventilators</li>
-                <li class="list-group-item">{{ nodeService.balance.hazmats }} Hazmats</li>
                 <li class="list-group-item">{{ nodeService.balance.researches }} Researches</li>
             </ul>
         </div>
@@ -41,21 +40,31 @@
                 <a class="btn btn-sm btn-outline-primary ml-2" routerLink="/transactions">More</a>
             </div>
             <div class="card-body p-0">
-                <table *ngIf="nodeService.transactions.length > 0" class="table m-0">
+                <table *ngIf="nodeService.transactions.length > 0" class="table table-hover text-center m-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sender</th>
+                        <th scope="col">Reciever</th>
+                        <th scope="col">Items</th>
+                      </tr>
+                    </thead>
                     <tbody>
                         <tr *ngFor="let tx of nodeService.transactions">
-                            <td>{{ tx.from }}</td>
-                            <td>{{ tx.to }}</td>
+                            <td class="col-2">
+                                {{ tx.sender == wallet.getPublic() ? 'You' : '...' + tx.sender.substr(tx.sender.length - 5) }}
+                            </td>
+                            <td class="col-2">
+                                {{ tx.reciever == wallet.getPublic() ? 'You' : '...' + tx.reciever.substr(tx.reciever.length - 5) }}
+                            </td>
                             <td>
-                                <div class="row">
-                                    <div class="col-3">{{ tx.amount }}</div>
-                                    <div class="col-3">{{ tx.masks }}</div>
-                                    <div class="col-3">{{ tx.respirators }}</div>
-                                    <div class="col-3">{{ tx.volunteers }}</div>
-                                    <div class="col-3">{{ tx.doctors }}</div>
-                                    <div class="col-3">{{ tx.ventilators }}</div>
-                                    <div class="col-3">{{ tx.hazmats }}</div>
-                                    <div class="col-3">{{ tx.researches }}</div>
+                                <div class="d-flex flex-wrap">
+                                    <div class="px-3">{{ tx.clicks }} clicks</div>
+                                    <div class="px-3">{{ tx.masks }} masks</div>
+                                    <div class="px-3">{{ tx.respirators }} respirators</div>
+                                    <div class="px-3">{{ tx.volunteers }} volunteers</div>
+                                    <div class="px-3">{{ tx.doctors }} doctors</div>
+                                    <div class="px-3">{{ tx.ventilators }} ventilators</div>
+                                    <div class="px-3">{{ tx.researches }} researches</div>
                                 </div>
                             </td>
                         </tr>

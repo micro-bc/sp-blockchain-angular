@@ -70,7 +70,7 @@ export class NodeService {
 
 
   prepareAndSend(tx: Transaction): Observable<Object> {
-    tx.from = this.wallet.getPublic();
+    tx.sender = this.wallet.getPublic();
     const sig = this.wallet.sign(tx);
 
     let obj = { transaction: tx, signature: sig };

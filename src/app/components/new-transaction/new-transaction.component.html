@@ -7,14 +7,14 @@
     <div class="form-group">
         <small>Reciever Address</small>
         <textarea ngbAutofocus class="form-control" style="resize: none;" name="recAddress"
-            [(ngModel)]="transaction.to"></textarea>
+            [(ngModel)]="transaction.reciever"></textarea>
     </div>
 
     <div class="row">
         <div class="col-md-6 form-group">
-            <small>Coins</small>
+            <small>Clicks</small>
             <div class="input-group">
-                <input type="number" min="0" class="form-control" name="coins" [(ngModel)]="transaction.amount">
+                <input type="number" min="0" class="form-control" name="coins" [(ngModel)]="transaction.clicks">
                 <div class="input-group-append">
                     <span class="input-group-text">max: 20</span>
                 </div>
@@ -65,16 +65,6 @@
             <small>Ventilators</small>
             <div class="input-group">
                 <input type="number" min="0" class="form-control" name="ventilators" [(ngModel)]="transaction.ventilators">
-                <div class="input-group-append">
-                    <span class="input-group-text">max: 20</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 form-group">
-            <small>Hazmats</small>
-            <div class="input-group">
-                <input type="number" min="0" class="form-control" name="hazmats" [(ngModel)]="transaction.hazmats">
                 <div class="input-group-append">
                     <span class="input-group-text">max: 20</span>
                 </div>
