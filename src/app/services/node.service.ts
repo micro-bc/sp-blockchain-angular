@@ -19,7 +19,10 @@ export class NodeService {
   nodeUrl: string;
 
   transactions: Transaction[] = [];
+  mempool: Transaction[] = [];
   balance: Balance = new Balance();
+
+  timer: NodeJS.Timeout;
 
   constructor(
     private http: HttpClient,
@@ -38,6 +41,8 @@ export class NodeService {
         }
       });
     }
+
+    // this.timer = setInterval(() => this.refreshData(), 5000);
   }
 
   setTrackerURL(trackerUrl: string): void {
@@ -45,9 +50,14 @@ export class NodeService {
     localStorage.setItem(NodeService.trackerLocalStorage, trackerUrl);
   }
 
-  setNodeURL(nodeUrl: string): void {
+  setNodeURL(nodeUrl: string = null): void {
     this.nodeUrl = nodeUrl;
-    sessionStorage.setItem(NodeService.nodeSessionStorage, nodeUrl);
+    if (!nodeUrl) {
+      sessionStorage.removeItem(NodeService.nodeSessionStorage);
+    }
+    else {
+      sessionStorage.setItem(NodeService.nodeSessionStorage, nodeUrl);
+    }
   }
 
   getNodes(trackerUrl: string = this.trackerUrl): Observable<string[]> {
@@ -65,7 +75,10 @@ export class NodeService {
     return this.http.get('http://' + nodeUrl).toPromise().then(_ => {
       this.setNodeURL(nodeUrl);
       return true;
-    }, _ => { return false; });
+    }, _ => {
+      this.setNodeURL();
+      return false;
+    });
   }
 
 
@@ -75,11 +88,16 @@ export class NodeService {
     return this.http.post<string>('http://' + this.nodeUrl + '/prepareTransaction', tx).toPromise().then(id => {
       const obj = {
         id: id,
+        publicKey: this.wallet.getPublic(),
         signature: this.wallet.sign(id)
       }
-      
+
       return this.http.post<void>('http://' + this.nodeUrl + '/sendTransaction', obj).toPromise();
     }, e => e);
+  }
+
+  getMempool(address: string = ''): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>('http://' + this.nodeUrl + '/mempool/' + address);
   }
 
   getTransactions(): Observable<Transaction[]> {
@@ -91,13 +109,41 @@ export class NodeService {
   }
 
   refreshData(): void {
-    this.getTransactions().subscribe(txs => {
-      this.transactions = txs;
-    }, console.error);
+    if (this.nodeUrl) {
+      this.connectToNode(this.nodeUrl).then(res => {
+        if (res) {
 
-    this.getBalance().subscribe(bal => {
-      this.balance = bal;
-    }, console.error);
+          this.getTransactions().subscribe(txs => {
+            txs.forEach(tx => tx.validated = true);
+            this.transactions = txs;
+            this.getMempool(this.wallet.getPublic()).subscribe(utxs => {
+              this.transactions = utxs.concat(this.transactions);
+            });
+          }, console.error);
+
+          this.getMempool().subscribe(txs => {
+            this.mempool = txs;
+          }, console.error);
+
+          this.getBalance().subscribe(bal => {
+            this.balance = bal;
+          }, console.error);
+
+        }
+      });
+    }
+  }
+
+
+  mineBlock(): void {
+    const obj = {
+      publicKey: this.wallet.getPublic(),
+      signature: this.wallet.sign('mineBlock')
+    };
+
+    this.http.post('http://' + this.nodeUrl + '/mineBlock', obj).subscribe({
+      complete: () => this.refreshData()
+    });
   }
 
 }

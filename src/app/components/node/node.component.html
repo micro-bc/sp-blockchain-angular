@@ -35,3 +35,50 @@
     <button *ngFor="let node of nodes" type="button" class="list-group-item list-group-item-action" (click)="nodeField = node; Connect();">{{node}}</button>
     <button *ngIf="nodes.length === 0" type="button" class="list-group-item list-group-item-action" disabled>No nodes</button>
 </div>
+
+<div *ngIf="this.nodeService.nodeUrl">
+    <hr class="my-4">
+
+    <div class="card border shadow">
+        <div class="card-header d-flex align-items-center">
+            <span class="mr-auto">Mempool Transactions</span>
+            <button class="btn btn-sm btn-primary" (click)="nodeService.refreshData()">Refresh</button>
+            <button class="btn btn-sm btn-primary ml-2" (click)="nodeService.mineBlock()">Mine block</button>
+        </div>
+        <div class="card-body p-0">
+            <table *ngIf="nodeService.mempool.length > 0" class="table table-hover text-center m-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Sender</th>
+                    <th scope="col">Reciever</th>
+                    <th scope="col">Items</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tx of nodeService.mempool">
+                        <td class="col-2">
+                            ...{{ tx.sender.substr(tx.sender.length - 5) }}
+                        </td>
+                        <td class="col-2">
+                            ...{{ tx.reciever.substr(tx.reciever.length - 5) }}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap justify-content-around">
+                                <div *ngIf="tx.data.clicks" class="px-3">{{ tx.data.clicks }} clicks</div>
+                                <div *ngIf="tx.data.masks" class="px-3">{{ tx.data.masks }} masks</div>
+                                <div *ngIf="tx.data.respirators" class="px-3">{{ tx.data.respirators }} respirators</div>
+                                <div *ngIf="tx.data.volunteers" class="px-3">{{ tx.data.volunteers }} volunteers</div>
+                                <div *ngIf="tx.data.doctors" class="px-3">{{ tx.data.doctors }} doctors</div>
+                                <div *ngIf="tx.data.ventilators" class="px-3">{{ tx.data.ventilators }} ventilators</div>
+                                <div *ngIf="tx.data.researches" class="px-3">{{ tx.data.researches }} researches</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex">
+                <span *ngIf="nodeService.mempool.length === 0" class="h5 text-muted m-3 mx-auto">No transactions in mempool</span>
+            </div>
+        </div>
+    </div>
+</div>
