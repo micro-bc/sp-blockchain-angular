@@ -31,4 +31,10 @@ export class NodeComponent implements OnInit {
     this.nodeService.connectToNode(this.nodeField);
   }
 
+  formatAddress(address): string {
+    if (!address) return 'Coinbase';
+
+    return '...' + address.substr(address.length - 7)
+  }
+
 }

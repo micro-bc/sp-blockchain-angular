@@ -8,13 +8,16 @@ import { WalletService } from '../services/wallet.service';
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private wallet: WalletService
+    ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (localStorage.getItem(WalletService.localStorageKey)) {
+    if (this.wallet.username) {
       return true;
     }
 

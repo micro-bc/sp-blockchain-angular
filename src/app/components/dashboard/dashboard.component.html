@@ -54,12 +54,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let tx of nodeService.transactions" class="{{ tx.validated ? '' : 'table-warning' }}">
-                            <td class="col-2">
-                                {{ tx.sender == wallet.getPublic() ? 'You' : '...' + tx.sender.substr(tx.sender.length - 5) }}
-                            </td>
-                            <td class="col-2">
-                                {{ tx.reciever == wallet.getPublic() ? 'You' : '...' + tx.reciever.substr(tx.reciever.length - 5) }}
-                            </td>
+                            <td class="col-2">{{ formatAddress(tx.sender) }}</td>
+                            <td class="col-2">{{ formatAddress(tx.reciever) }}</td>
                             <td>
                                 <div class="d-flex flex-wrap justify-content-around">
                                     <div *ngIf="tx.data.clicks" class="px-3">{{ tx.data.clicks }} clicks</div>

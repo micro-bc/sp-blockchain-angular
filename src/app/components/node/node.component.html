@@ -57,10 +57,10 @@
                 <tbody>
                     <tr *ngFor="let tx of nodeService.mempool">
                         <td class="col-2">
-                            ...{{ tx.sender.substr(tx.sender.length - 5) }}
+                            {{ formatAddress(tx.sender) }}
                         </td>
                         <td class="col-2">
-                            ...{{ tx.reciever.substr(tx.reciever.length - 5) }}
+                            {{ formatAddress(tx.reciever) }}
                         </td>
                         <td>
                             <div class="d-flex flex-wrap justify-content-around">

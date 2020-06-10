@@ -33,4 +33,12 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(NewTransactionComponent, { size: 'xl', centered: true });
   }
 
+  formatAddress(address): string {
+    if (!address) return 'Coinbase';
+
+    if (address === this.wallet.getPublic()) return 'You';
+
+    return '...' + address.substr(address.length - 7)
+  }
+
 }
