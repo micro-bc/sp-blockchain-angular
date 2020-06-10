@@ -5,6 +5,5 @@ export class Balance {
     volunteers: number = 0;
     doctors: number = 0;
     ventilators: number = 0;
-    hazmats: number = 0;
     researches: number = 0;
 }

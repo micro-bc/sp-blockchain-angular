@@ -44,7 +44,7 @@ export class WalletService {
   }
 
 
-  sign(tx: Transaction): string {
+  sign(tx): string {
     return this.keyPair.sign(JSON.stringify(tx), 'utf-8').toDER('hex');
   }
 

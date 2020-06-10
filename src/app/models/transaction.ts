@@ -1,13 +1,8 @@
+import { Balance } from './balance';
+
 export class Transaction {
     sender: string;
     reciever: string;
 
-    clicks: number = 0;
-    masks: number = 0;
-    respirators: number = 0;
-    volunteers: number = 0;
-    doctors: number = 0;
-    ventilators: number = 0;
-    hazmats: number = 0;
-    researches: number = 0;
+    data: Balance = new Balance();
 }

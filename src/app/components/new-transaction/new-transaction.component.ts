@@ -11,6 +11,8 @@ import { NodeService } from 'src/app/services/node.service';
 })
 export class NewTransactionComponent implements OnInit {
 
+  error: string = '';
+
   transaction: Transaction = new Transaction();
 
   constructor(
@@ -22,10 +24,9 @@ export class NewTransactionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.nodeService.prepareAndSend(this.transaction).subscribe({
-      complete: () => this.modal.close(true),
-      error: console.error
-    });
+    this.nodeService.prepareAndSend(this.transaction).then(() => {
+      this.modal.close();
+    }, e => this.error = e.message)
   }
 
 }

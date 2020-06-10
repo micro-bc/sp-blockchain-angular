@@ -69,12 +69,17 @@ export class NodeService {
   }
 
 
-  prepareAndSend(tx: Transaction): Observable<Object> {
+  async prepareAndSend(tx: Transaction): Promise<void> {
     tx.sender = this.wallet.getPublic();
-    const sig = this.wallet.sign(tx);
 
-    let obj = { transaction: tx, signature: sig };
-    return this.http.post('http://' + this.nodeUrl + '/transaction', obj);
+    return this.http.post<string>('http://' + this.nodeUrl + '/prepareTransaction', tx).toPromise().then(id => {
+      const obj = {
+        id: id,
+        signature: this.wallet.sign(id)
+      }
+      
+      return this.http.post<void>('http://' + this.nodeUrl + '/sendTransaction', obj).toPromise();
+    }, e => e);
   }
 
   getTransactions(): Observable<Transaction[]> {
