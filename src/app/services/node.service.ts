@@ -6,6 +6,7 @@ import { share } from 'rxjs/operators'
 import { Transaction } from '../models/transaction';
 import { WalletService } from './wallet.service';
 import { Balance } from '../models/balance';
+import { LogEntry } from '../models/log-entry';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ export class NodeService {
   transactions: Transaction[] = [];
   mempool: Transaction[] = [];
   balance: Balance = new Balance();
+
+  logs: LogEntry[] = [];
+  ftlogs: LogEntry[] = [];
 
   timer: NodeJS.Timeout;
 
@@ -144,6 +148,27 @@ export class NodeService {
     this.http.post('http://' + this.nodeUrl + '/mineBlock', obj).subscribe({
       complete: () => this.refreshData()
     });
+  }
+
+
+  refreshLogs(): void {
+    this.getLogs().subscribe(
+      logs => this.logs = logs.reverse().slice(0, 10),
+      console.error
+    );
+
+    this.getInvTransLog().subscribe(
+      logs => this.ftlogs = logs.reverse().slice(0, 10),
+      console.error
+    );
+  }
+
+  getLogs(): Observable<LogEntry[]> {
+    return this.http.get<LogEntry[]>('http://' + this.nodeUrl + '/log');
+  }
+
+  getInvTransLog(): Observable<LogEntry[]> {
+    return this.http.get<LogEntry[]>('http://' + this.nodeUrl + '/log/transactions/failed');
   }
 
 }
